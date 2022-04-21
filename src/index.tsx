@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from 'styled-components';
+import SiteRouter from './Components/SiteRouter';
+import { Theme } from './BaseStyledComponents/Theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={Theme}>
+        <SiteRouter/>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
