@@ -12,8 +12,8 @@ import {
 interface choroplethProps {
     data: any[],
     columnName: string,
-    color1: string,
-    color2: string,
+    color1: string | undefined,
+    color2: string | undefined,
     setToolTipContent: (x: string) => void 
 }
 
