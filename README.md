@@ -32,9 +32,9 @@ to run: npm i npm start
 # Libraries In Use
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-react-router
-recharts
-react-select
-react-simple-maps
-sstyled components
+react-router,
+recharts,
+react-select,
+react-simple-maps,
+sstyled components,
 feathers client (with axios)
