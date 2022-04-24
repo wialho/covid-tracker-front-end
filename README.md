@@ -10,14 +10,26 @@ The current backend is referring to this [repo](https://github.com/wialho/covid-
 and front end api methods are tightly coupled to feathersClient. The authentication methods are not and 
 could be switched out with minimal editing. 
 
+to run: npm i npm start
+
+# Project Structure
+- Api: files under this folder are used to connect to the backend
+- Auth: custom hooks and context files for authentication across the app
+- BaseStyleComponents: this project does not use a styling library (such as material design, bootstrap, etc)
+     instead it uses styled components which are under this folder.
+- Models: this is the space to put model interfaces that are used across the spa
+- Components: child components that make up the app structure
+- Pages: the parent components of the app, the 'pages' in terms of url. 
+
 # Todo
+- add error handling (there is none currently)
 - create a view tile component that shows on the dashboard so users can go back to their previous searches 
 - create some buttons and functionality on graphs to save for future retrieval
 - update fetchLineChartData to be more efficient 
 - pull stuff out of ExploreData
 - up test coverage
 
-# libraries in use
+# Libraries In Use
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 react-router

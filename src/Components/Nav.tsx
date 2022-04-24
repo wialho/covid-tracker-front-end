@@ -2,6 +2,7 @@ import { useAuth } from "../Auth/Auth";
 import { MdLogout } from 'react-icons/md'
 import { TopNav, TopNavDiv, TopNavLink } from "../BaseStyledComponents/TopNav";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = styled.button`
     background-color: ${props => props.theme.primary};
@@ -16,6 +17,13 @@ const LogoutButton = styled.button`
 
 const Nav = () => {
     let auth = useAuth();
+    let navigate = useNavigate();
+
+    const logout = () => {
+        auth.signout(() => {
+            navigate('/login')
+        });
+    }
 
     return (
         <TopNav>
@@ -25,7 +33,7 @@ const Nav = () => {
             <TopNavLink to='/explore'>Explore Data</TopNavLink> 
             <TopNavDiv>
                 Welcome {auth.user.name}!
-                <LogoutButton><MdLogout style={{verticalAlign: 'middle'}}/></LogoutButton>
+                <LogoutButton onClick={logout}><MdLogout style={{verticalAlign: 'middle'}}/></LogoutButton>
             </TopNavDiv>
                      
         </TopNav>
