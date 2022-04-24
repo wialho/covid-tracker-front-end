@@ -4,11 +4,12 @@ import Choropleth from "../Components/Choropleth";
 import Layout from "../Components/Layout"
 import ReactTooltip from "react-tooltip";
 import { ChartWrapper } from "../BaseStyledComponents/ChartWrapper";
-import { ConvertDatabaseFieldToDisplayString } from "../Utility/StringFormatting";
+import { ConvertDatabaseFieldToDisplayString, ConvertZuluDateToDisplayableDate } from "../Utility/StringFormatting";
 import { Row } from "../BaseStyledComponents/Row";
 import { Col } from "../BaseStyledComponents/Col";
 import ColorSelect from "../Components/ColorSelect";
 import Select from 'react-select';
+import Lines from "../Components/Lines";
 
 interface LooseObject {
     [key: string]: any
@@ -117,7 +118,7 @@ const ExploreData = () => {
             let subArr = getColumnValues(result.data.filter((x: any) => x.date === uniqueDates[i]));
 
             var obj: LooseObject = {
-                date: uniqueDates[i]
+                date: ConvertZuluDateToDisplayableDate(uniqueDates[i] as string)
             };
 
             for(var j = 0; j < columnNames.length; j++){
@@ -127,16 +128,15 @@ const ExploreData = () => {
             lineData.push(obj);
         }
 
-        console.log(lineData);
-        //setLineChartData(lineData);
+        setLineChartData(lineData);
     }
     
     const getColumnNames = (): string[]  => {
         let names = [];
         for(var i = 0; i < lineChartCountries.length; i++){
-            for(var j = 0; i < lineChartColumns.length; i++)
+            for(var j = 0; j < lineChartColumns.length; j++)
             {
-                names.push(lineChartCountries[i].value + ' ' + lineChartColumns[j].label);
+                names.push(lineChartCountries[i].value + ' - ' + lineChartColumns[j].label);
             }
         }
         return names;
@@ -147,20 +147,18 @@ const ExploreData = () => {
         for(var i = 0; i < lineChartCountries.length; i++){
             for(var j = 0; j < lineChartColumns.length; j++){
                 var foundObj = arr.find(x => x.location === lineChartCountries[i].value);
-                if(foundObj){
-                    objVal.push(arr[lineChartColumns[j]]);
+                if(!!foundObj){
+                    objVal.push(foundObj[lineChartColumns[j].value]);
                 }
                 else{
                     objVal.push(null);
                 }
             }
         }
-
         return objVal;
     }
 
     const manageMultiSelects = (multiVal: any, type: string) => {
-        console.log(multiVal);
         if(type === "country"){
             if(multiVal.length * lineChartColumns.length <= 6){
                 setLineChartCountries(multiVal);
@@ -266,9 +264,13 @@ const ExploreData = () => {
                     </Col>
                 </Row>
                 <Row justifyContent="center">
-                    <p>You can plot a total of 6 lines below, currently you have a total of {lineChartColumns.length * lineChartCountries.length}.</p>
+                    <p>You can plot a total of 6 lines below, currently you have a total of {lineChartColumns.length * lineChartCountries.length} selected.</p>
                 </Row>
-                
+                <Row justifyContent="center">
+                <Lines data={lineChartData}
+                    columns={getColumnNames()}
+                    />
+                </Row>
             </ChartWrapper>
         </Layout>
     );

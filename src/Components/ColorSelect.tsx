@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 
 interface ColorSelectProps{
     onSelect: (x?: string) => void
@@ -17,12 +17,37 @@ export const colors = [
 
 const ColorSelect = (props: ColorSelectProps) => {
 
+    const colorStyles = {
+        control: (styles: any) => ({ ...styles, backgroundColor: 'white' }),
+        option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => {
+          return {
+            ...styles,
+            backgroundColor: isDisabled
+              ? undefined
+              : isSelected
+              ? data.value
+              : isFocused
+              ? data.value
+              : undefined,
+            ':active': {
+              ...styles[':active'],
+              backgroundColor: !isDisabled
+                ? isSelected
+                  ? data.value
+                  : data.value
+                : undefined,
+            },
+          };
+        }
+    }
+
     return (
         <Select options={colors}
             isClearable={false}
             isSearchable={false}
             onChange={(e) => props.onSelect(e?.value)}
-            value={colors.find(x => x.value === props.initialValue)}/>
+            value={colors.find(x => x.value === props.initialValue)}
+            styles={colorStyles}/>
     )
 }
 

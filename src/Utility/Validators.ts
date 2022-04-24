@@ -1,6 +1,7 @@
 export function IsPhoneValid(phoneNumber: string): boolean {
+    var re = /^[0-9]*$/;
     return (phoneNumber.length === 7 || phoneNumber.length === 10) 
-        &&  !!phoneNumber.match("[0-9]+");
+        &&  re.test(phoneNumber);
 }
 
 export function IsEmailValid(email: string): boolean {
