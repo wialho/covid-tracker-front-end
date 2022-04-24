@@ -36,5 +36,5 @@ react-router,
 recharts,
 react-select,
 react-simple-maps,
-sstyled components,
+styled components,
 feathers client (with axios)
